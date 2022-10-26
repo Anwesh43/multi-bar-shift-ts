@@ -1,6 +1,7 @@
 import React from "react";
 import withContext from "./withContext";
 import { useStyle  } from "./hooks";
+import { getNumArray } from "./utils";
 
 interface MBSProps {
     n : number, 
@@ -11,8 +12,10 @@ interface MBSProps {
 }
 const MultiBarShift : React.FC<MBSProps> = (props : MBSProps) => {
     const {parentStyle, barStyle} = useStyle(props.n, props.w, props.h, props.scale)
-    return <div style = {parentStyle()}>
-        {[0, 1, 2].map(i => (<div key = {`bar_${i}`} style = {barStyle(i)}></div>))}
+    return <div style = {parentStyle()} onClick = {() => {
+        props.onClick()
+    }}>
+        {getNumArray(props.n).map(i => (<div key = {`bar_${i}`} style = {barStyle(i)}></div>))}
     </div>
 } 
 

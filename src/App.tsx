@@ -6,7 +6,7 @@ import MultiBarShift from './MultiBarShift';
 function App() {
   return (
     <div className="App">
-      <MultiBarShift n = "3"></MultiBarShift>
+      <MultiBarShift n = "8"></MultiBarShift>
     </div>
   );
 }

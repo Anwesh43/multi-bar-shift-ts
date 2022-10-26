@@ -1,7 +1,8 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, CSSProperties} from 'react'
 
 const scGap : number = 0.02 
 const delay : number = 20 
+const sizeFactor : number = 8.9 
 
 export const useAnimatedScale = (speed  : number = scGap, delayInMs : number = delay) => {
     const [scale, setScale] = useState(0)
@@ -37,12 +38,38 @@ export const useDimension = () => {
         }
         return () => {
             window.onresize = () => {
-                
+
             }
         }
     })
     return {
         w, 
         h
+    }
+}
+
+export const useStyle = (n : number, w : number, h : number, scale : number) => {
+    const size : number = Math.min(w, h) / sizeFactor 
+    const color : string = "indigo"
+    const position = "absolute"
+    const barH : number = size / 3
+    return {
+        parentStyle() : CSSProperties {
+            return {
+                position, 
+                left : `${w / 2}px`,
+                top : `${h / 2}px`
+            }
+        },
+        barStyle(i : number) : CSSProperties {
+            return {
+                position: 'absolute',
+                top: `${-size + barH * i}px`,
+                left: `${-size / 2 + (w / 2 - size)}px`,
+                background : color,
+                width: `${size}px`,
+                height: `${barH}px`
+            }
+        }
     }
 }

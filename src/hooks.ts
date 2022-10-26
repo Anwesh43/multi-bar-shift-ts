@@ -1,4 +1,5 @@
 import {useState, useEffect, CSSProperties} from 'react'
+import { divideScale } from './utils'
 
 const scGap : number = 0.02 
 const delay : number = 20 
@@ -53,6 +54,7 @@ export const useStyle = (n : number, w : number, h : number, scale : number) => 
     const color : string = "indigo"
     const position = "absolute"
     const barH : number = size / 3
+    const dsc : (i : number) => number = (i : number) : number => divideScale(scale, i, n)
     return {
         parentStyle() : CSSProperties {
             return {
@@ -65,7 +67,7 @@ export const useStyle = (n : number, w : number, h : number, scale : number) => 
             return {
                 position: 'absolute',
                 top: `${-size + barH * i}px`,
-                left: `${-size / 2 + (w / 2 - size)}px`,
+                left: `${-size / 2 + (w / 2 - size) * dsc(i)}px`,
                 background : color,
                 width: `${size}px`,
                 height: `${barH}px`
